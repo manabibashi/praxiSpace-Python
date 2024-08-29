@@ -1,24 +1,25 @@
 """
-3. 計算する。
-
-+ - * / で計算できます。
+計算する
 """
 
-# 計算結果を画面に出します。
-print(1 + 1)
+# 足し算
+print(3 + 2)
 
-# 変数を使って計算します。
-x = 3
-y = 2
-print(f"足し算：{x + y}")
-print(f"引き算：{x - y}")
-print(f"かけ算：{x * y}")
-print(f"割り算：{x / y}")
+# 引き算
+print(3 - 2)
 
-# 変数の値を計算で変えます。
+# かけ算
+print(3 * 2)
+
+# わり算
+print(3 / 2)
+
+# 変数を使った計算
 age = 10
-print(f"年は{age}さいです。")
+print(age)
+
 age = age + 1
-print(f"来年は{age}さいになります。")
+print(age)
+
 age += 1  # age = age + 1 と同じです。
-print(f"再来年は{age}さいになります。")
+print(age)
