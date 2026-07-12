@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  # このリポジトリには Python の依存管理ファイルが無いため、
+  # GitHub Actions のバージョン更新のみを対象にします。
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
