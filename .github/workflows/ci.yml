@@ -1,3 +1,9 @@
+# 共通 CI(manabibashi/workflows)の呼び出し。実体は同リポジトリの .github/workflows/ci.yml。
+# ジョブ ID「ci」は変更禁止(必須チェック名「ci / required-check」を全リポジトリで揃えるため)。
+#
+# 教材リポジトリのため packaging(uv / pyproject)は持ち込まない。runtime: none とし、
+# ubuntu ランナーの system python で構文チェックだけを回す(Issue #4 の方針)。
+
 name: CI
 
 on:
@@ -5,46 +11,17 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
-  test:
-    name: Syntax check
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Compile all Python files
-        run: |
-          mapfile -t files < <(find . -name "*.py" | sort)
-          if [ "${#files[@]}" -eq 0 ]; then
-            echo "No .py files found - the syntax check would silently pass."
-            exit 1
-          fi
-          printf 'Checking %d file(s):\n' "${#files[@]}"
-          printf '  %s\n' "${files[@]}"
-          python -m py_compile "${files[@]}"
-
-  required-check:
-    name: required-check
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    if: always()
-    needs: [test]
-    steps:
-      - name: Verify that all jobs succeeded
-        run: |
-          if [ "${{ needs.test.result }}" != "success" ]; then
-            echo "test job did not succeed: ${{ needs.test.result }}"
-            exit 1
-          fi
+  ci:
+    uses: manabibashi/workflows/.github/workflows/ci.yml@v1
+    with:
+      runtime: none
+      test-command: python3 -m compileall .
+    secrets: inherit
