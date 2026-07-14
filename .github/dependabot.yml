@@ -1,11 +1,18 @@
+# REPO_STANDARD §4 / 付録 B 準拠。weekly(月曜 09:00 JST)/ cooldown 7 日 /
+# minor+patch はグループ化して 1 本の PR にまとめる(major は個別 PR)。
+# Python の依存管理ファイルが無いため github-actions のみを対象とする(B-6)。
 version: 2
-
 updates:
-  # このリポジトリには Python の依存管理ファイルが無いため、
-  # GitHub Actions のバージョン更新のみを対象にします。
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     cooldown:
       default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    open-pull-requests-limit: 10
