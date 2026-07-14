@@ -44,7 +44,8 @@ Python 3.11 で動作を確認しています。
 **CI / automerge は共通ワークフロー(`manabibashi/workflows@v1`)の呼び出し**(REPO_STANDARD §5)。
 実体は同リポジトリにあり、ここには薄い caller だけを置きます。ジョブ ID `ci` は変更禁止。
 
-- `ci.yml` の `with:` — **`runtime: none`** / `test-command: python3 -m compileall lecture practice`。
+- `ci.yml` の `with:` — **`runtime: none`** / `test-command: python3 -m compileall .`
+  （リポジトリ全体の `.py` を構文チェック。旧 CI の全ファイル対象と同等）。
   **uv 化はしません**(教材リポジトリに packaging の概念を持ち込まないため。Issue #4 の方針)。
   ubuntu ランナーの system python で動きます。
 - 必須ステータスチェック名は **`ci / required-check`**(組織で統一)。

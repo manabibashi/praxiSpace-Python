@@ -23,5 +23,5 @@ jobs:
     uses: manabibashi/workflows/.github/workflows/ci.yml@v1
     with:
       runtime: none
-      test-command: python3 -m compileall lecture practice
+      test-command: python3 -m compileall .
     secrets: inherit
